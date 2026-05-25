@@ -1,11 +1,9 @@
 const yesButtons = [
   document.getElementById("yesBtn"),
   document.getElementById("yesBtn2"),
-];
-const noButtons = [
-  document.getElementById("noBtn"),
-  document.getElementById("noBtn2"),
-];
+].filter(Boolean);
+const noButton = document.getElementById("noBtn2");
+const yesButton = document.getElementById("yesBtn2");
 const arena = document.getElementById("arena");
 const fireworksCanvas = document.getElementById("fireworks");
 const gameCard = document.getElementById("gameCard");
@@ -79,23 +77,49 @@ const activateFireworks = () => {
   animate();
 };
 
-const moveNoButton = (button) => {
+const overlaps = (rectA, rectB) =>
+  !(
+    rectA.right < rectB.left ||
+    rectA.left > rectB.right ||
+    rectA.bottom < rectB.top ||
+    rectA.top > rectB.bottom
+  );
+
+const moveNoButton = (button, avoid) => {
   const arenaRect = arena.getBoundingClientRect();
   const buttonRect = button.getBoundingClientRect();
   const maxX = arenaRect.width - buttonRect.width - 16;
   const maxY = arenaRect.height - buttonRect.height - 16;
-  const nextX = randomBetween(8, Math.max(8, maxX));
-  const nextY = randomBetween(8, Math.max(8, maxY));
+  const padding = 8;
+  const maxAttempts = 12;
 
   button.style.position = "absolute";
-  button.style.left = `${nextX}px`;
-  button.style.top = `${nextY}px`;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const nextX = randomBetween(padding, Math.max(padding, maxX));
+    const nextY = randomBetween(padding, Math.max(padding, maxY));
+    const candidate = {
+      left: arenaRect.left + nextX,
+      right: arenaRect.left + nextX + buttonRect.width,
+      top: arenaRect.top + nextY,
+      bottom: arenaRect.top + nextY + buttonRect.height,
+    };
+
+    const avoidRect = avoid?.getBoundingClientRect();
+    if (!avoidRect || !overlaps(candidate, avoidRect)) {
+      button.style.left = `${nextX}px`;
+      button.style.top = `${nextY}px`;
+      return;
+    }
+  }
 };
 
-noButtons.forEach((button) => {
-  button.addEventListener("mouseenter", () => moveNoButton(button));
-  button.addEventListener("click", () => moveNoButton(button));
-});
+if (noButton) {
+  noButton.addEventListener("mouseenter", () =>
+    moveNoButton(noButton, yesButton)
+  );
+  noButton.addEventListener("click", () => moveNoButton(noButton, yesButton));
+}
 
 yesButtons.forEach((button) => {
   button.addEventListener("click", activateFireworks);
