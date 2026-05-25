@@ -27,9 +27,11 @@
   </head>
   <body class="space-bg min-h-screen font-body text-slate-100">
     <div class="pointer-events-none fixed inset-0">
+      <div class="stars-layer stars-layer--soft"></div>
+      <div class="stars-layer stars-layer--dense"></div>
       <div class="nebula nebula--one"></div>
       <div class="nebula nebula--two"></div>
-      <div class="grid-overlay"></div>
+      <div class="cosmic-dust"></div>
     </div>
 
     <main class="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col gap-16 px-6 py-12 sm:px-10 lg:px-16">
@@ -44,21 +46,6 @@
             software. I live in Tunisia, I am passionate about football, and I
             have a special interest in astronomy.
           </p>
-          <div class="flex flex-wrap gap-4">
-            <button
-              class="rounded-full bg-gradient-to-r from-amber-300 via-rose-400 to-fuchsia-500 px-7 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-rose-400/30 transition hover:-translate-y-0.5 hover:shadow-rose-400/50 sm:text-base"
-              id="yesBtn"
-            >
-              Yes, say hi
-            </button>
-            <button
-              class="rounded-full border border-white/20 bg-white/10 px-7 py-3 text-sm font-semibold text-slate-100 shadow-sm transition hover:-translate-y-0.5 hover:border-white/40 sm:text-base"
-              id="noBtn"
-            >
-              No, not today
-            </button>
-          </div>
-          <p class="text-sm text-slate-300">(Psst.... the stars are on Team Yes.)</p>
         </div>
 
         <div class="sky-panel relative min-h-[320px] overflow-hidden rounded-[28px] border border-white/10 shadow-2xl">
@@ -79,7 +66,7 @@
           <h2 class="font-display text-3xl">Quick Question</h2>
           <p class="text-slate-300">Would you accept this hello?</p>
           <div
-            class="relative mx-auto mt-6 flex h-48 w-full max-w-md items-center justify-center gap-4 overflow-hidden rounded-2xl border border-dashed border-white/20"
+            class="relative mx-auto mt-6 flex h-48 w-full max-w-md items-center justify-center gap-4 overflow-hidden rounded-2xl border border-dashed border-white/20 bg-slate-950/30"
             id="arena"
           >
             <button
@@ -89,7 +76,7 @@
               Yes
             </button>
             <button
-              class="rounded-full border border-white/20 bg-white/10 px-6 py-2 text-sm font-semibold text-slate-100 shadow-sm transition hover:-translate-y-0.5"
+              class="rounded-full border border-white/50 bg-white/15 px-6 py-2 text-sm font-semibold text-slate-100 shadow-sm ring-1 ring-white/40 transition hover:-translate-y-0.5"
               id="noBtn2"
             >
               No
